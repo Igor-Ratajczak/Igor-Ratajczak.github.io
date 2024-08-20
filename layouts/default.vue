@@ -2,53 +2,24 @@
   <div>
     <header>
       <div class="logo">LOGO</div>
-
-      <div class="navbar" :class="showMenu ? 'open' : 'hide'">
-        <div class="close" @click="showMenu = false">X</div>
-        <NuxtLink to="/" @click="showMenu = false"
-          ><div class="item">
-            <b>Strona główna</b>
-          </div>
-        </NuxtLink>
-        <NuxtLink to="/projects" @click="showMenu = false"
-          ><div class="item">
-            <b>Moje projekty</b>
-          </div>
-        </NuxtLink>
-        <NuxtLink to="/about" @click="showMenu = false"
-          ><div class="item">
-            <b>O mnie</b>
-          </div>
-        </NuxtLink>
-      </div>
-      <div class="menu-mobile" @click="showMenu = true">
-        <svg width="40" height="40" viewBox="0 0 100 100">
-          <line
-            x1="0"
-            y1="28"
-            x2="100"
-            y2="28"
-            stroke="white"
-            stroke-width="5"
-          />
-          <line
-            x1="0"
-            y1="56"
-            x2="100"
-            y2="56"
-            stroke="white"
-            stroke-width="5"
-          />
-          <line
-            x1="0"
-            y1="84"
-            x2="100"
-            y2="84"
-            stroke="white"
-            stroke-width="5"
-          />
-        </svg>
-      </div>
+      <NuxtLink to="/"
+        ><div class="item">
+          <div class="icon"><homeVue /></div>
+          <!-- <b>Strona główna</b> -->
+        </div>
+      </NuxtLink>
+      <NuxtLink to="/projects"
+        ><div class="item">
+          <div class="icon"><homeVue /></div>
+          <!-- <b>Moje projekty</b> -->
+        </div>
+      </NuxtLink>
+      <NuxtLink to="/about"
+        ><div class="item">
+          <div class="icon"><homeVue /></div>
+          <!-- <b>O mnie</b> -->
+        </div>
+      </NuxtLink>
     </header>
     <main>
       <slot />
@@ -62,11 +33,7 @@
 </template>
 
 <script setup lang="ts">
-  const showMenu = ref(false)
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 1000) showMenu.value = false
-  })
+  import homeVue from './icons/home.vue'
 </script>
 
 <style lang="less">
@@ -74,64 +41,73 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
-    background: linear-gradient(to left, rgb(0, 65, 0), rgb(0, 138, 0));
-    color: white;
+    background: var(--background-header);
+    color: var(--color-header);
     padding: 10px;
     user-select: none;
+    position: absolute;
+    backdrop-filter: blur(5px);
+    gap: 2em;
+    z-index: 10000;
+
+    @media screen and (max-height: 450px) {
+      flex-direction: column;
+      right: 0;
+      width: 70px;
+      height: max-content;
+      left: calc(100vw - 70px);
+      border-radius: 25px 0 0 25px;
+      top: 50%;
+      transform: translate(0, -50%);
+      border-radius: 20px 0 0 25px;
+    }
+
+    @media screen and (min-height: 451px) {
+      flex-direction: row;
+      bottom: 0;
+      right: 50%;
+      transform: translate(50%, 0);
+      border-radius: 25px 25px 0 0;
+    }
 
     > .logo {
       flex-grow: 1;
     }
 
-    .navbar {
-      flex-grow: 10;
-      display: flex;
-      gap: 2em;
-      justify-content: center;
+    > a {
+      color: white;
+      text-decoration: none;
 
-      .close {
-        display: none;
-      }
+      .item {
+        display: grid;
+        justify-items: center;
 
-      > a {
-        color: white;
-        text-decoration: none;
-
-        .item {
-          border: 2px solid white;
+        .icon {
+          width: 50px;
+          height: 50px;
+          padding: 10px;
           border-radius: 25px;
-          padding: 0.5em 1em;
+          z-index: 10;
+          position: relative;
+          transition: transform 0.5s, box-shadow 0.5s 0.2s;
+          background: radial-gradient(lightgreen, green);
+          box-shadow: 0px 0px 50px 10px transparent;
 
-          &:hover {
-            background-color: rgba(255, 255, 255, 0.267);
+          @media screen and (min-width: 1000px) and (min-height: 600px) {
+            &:hover {
+              transform: scale(1.3);
+              box-shadow: 0px 0px 50px 10px green;
+            }
+            &:hover::before {
+              animation: rotate 1s linear infinite forwards;
+              animation-delay: 0ms;
+            }
+            @keyframes rotate {
+              to {
+                transform: rotate(360deg);
+              }
+            }
           }
-        }
-      }
-      @media (max-width: 1000px) {
-        flex-direction: column;
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 50vw;
-        height: 100vh;
-        justify-content: baseline;
-        background-color: rgba(0, 0, 0, 0.904);
-        padding: 2em;
-
-        &.hide {
-          display: none;
-        }
-
-        &.open {
-          display: flex;
-        }
-
-        .close {
-          display: block;
-        }
-        .item {
-          background: linear-gradient(to right, rgb(0, 65, 0), rgb(0, 138, 0));
         }
       }
     }
@@ -147,10 +123,17 @@
     width: 100vw;
     height: 100%;
     text-align: center;
+    padding: 2em;
+    padding-top: 0em;
+
+    > div {
+      background-color: green;
+      height: 40em;
+    }
   }
   footer {
-    background: linear-gradient(to left, rgb(0, 65, 0), rgb(0, 138, 0));
-    color: white;
+    background: var(--background-button);
+    color: var(--color-button);
     padding: 10px;
     user-select: none;
     text-align: center;
