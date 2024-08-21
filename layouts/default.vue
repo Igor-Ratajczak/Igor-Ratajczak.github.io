@@ -111,23 +111,16 @@
         }
       }
     }
-    .menu-mobile {
-      display: none;
-
-      @media (max-width: 1000px) {
-        display: block;
-      }
-    }
   }
   main {
     width: 100vw;
     height: 100%;
     text-align: center;
     padding: 2em;
-    padding-top: 0em;
 
     > div {
-      background-color: green;
+      background-color: rgba(0, 0, 0, 0.75);
+      color: white;
       height: 40em;
     }
   }
