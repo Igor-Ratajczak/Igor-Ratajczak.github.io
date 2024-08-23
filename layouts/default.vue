@@ -54,7 +54,7 @@
       flex-direction: column;
       right: 0;
       width: 70px;
-      height: max-content;
+      height: 100vh;
       left: calc(100vw - 70px);
       border-radius: 25px 0 0 25px;
       top: 50%;
@@ -68,6 +68,26 @@
       right: 50%;
       transform: translate(50%, 0);
       border-radius: 25px 25px 0 0;
+    }
+    @media screen and (max-width: 451px) {
+      width: 100vw;
+      gap: 10px;
+
+      .logo.logo {
+        flex-grow: 0;
+      }
+      .icon.icon {
+        width: 30px;
+        height: 30px;
+        display: grid;
+        place-content: center;
+        padding: 0;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
     }
 
     > .logo {
@@ -116,12 +136,29 @@
     width: 100vw;
     height: 100%;
     text-align: center;
-    padding: 2em;
+
+    @media screen and (min-width: 450px) {
+      & {
+        width: calc(100vw - 4em);
+        left: 50%;
+        position: relative;
+        transform: translate(-50%);
+      }
+    }
+    @media screen and (max-height: 450px) {
+      width: calc(100vw - 70px);
+      left: 0;
+      transform: translate(0);
+    }
 
     > div {
       background-color: rgba(0, 0, 0, 0.75);
       color: white;
-      height: 40em;
+      height: 100vh;
+
+      > h1 {
+        padding: 5px;
+      }
     }
   }
   footer {

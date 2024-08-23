@@ -5,6 +5,13 @@
     </NuxtLayout>
   </div>
 </template>
+<script setup lang="ts">
+  useSeoMeta({
+    themeColor: '#000000',
+    ogImage: '/public/favicon.ico',
+    description: 'My website about me and my projects.',
+  })
+</script>
 
 <style lang="less">
   @import url('~/assets/style.less');
